@@ -1,0 +1,23 @@
+.nav {
+    text-align: center;
+    grid-area: sidebar;
+    display: grid;
+    grid-auto-flow: row;
+    align-items: center;
+    grid-template-rows: repeat(5, 35px);
+}
+
+.nav_item {
+    cursor: pointer;
+}
+.nav_item a {
+    text-decoration: none;
+    color:black;
+}
+.nav_item a:hover {
+    text-decoration: none;
+    color:white;
+}
+.nav_item a.active{
+    color: gold;
+}

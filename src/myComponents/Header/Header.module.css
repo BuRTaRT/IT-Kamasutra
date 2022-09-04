@@ -1,0 +1,9 @@
+.header {
+    grid-area: header;
+    position: relative;
+}
+.header img {
+    position: absolute;
+    height: 100%;
+    left: 0;
+}

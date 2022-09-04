@@ -1,0 +1,11 @@
+.main {
+    background-color: transparent;
+    grid-area: main;
+    display: grid;
+    grid-template-rows: 150px 150px 160px auto;
+    grid-gap: 10px;
+}
+
+.main_img {
+    width: 100%;
+}
