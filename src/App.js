@@ -5,7 +5,7 @@ import Nav from "./myComponents/Nav/Nav";
 import Main from "./myComponents/Main/Main";
 import Footer from "./myComponents/Footer/Footer";
 import Dialogs from "./myComponents/Dialogs/Dialogs";
-import { Routes,  BrowserRouter, Route} from "react-router-dom";
+import { BrowserRouter, Route} from "react-router-dom";
 
 
 function App() {
@@ -21,10 +21,10 @@ function App() {
                 <Header/>
                 <Nav/>
                 <div className='app-wrapper-main'>
-                    <Routes>
-                    <Route path='/dialogs' element={<Dialogs/>}/>
-                    <Route path='/profile' element={<Main/>}/>
-                    </Routes>
+
+                    <Route path='/dialogs' component={Dialogs} />
+                    <Route path='/profile' component={Main}/>
+
                 </div>
                 <Footer/>
 
