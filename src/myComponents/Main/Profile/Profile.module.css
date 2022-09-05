@@ -1,8 +1,10 @@
-.profile {
-    display: flex;
-
+.main {
+    background-color: transparent;
+    display: grid;
+    grid-template-rows: 150px 160px auto;
+    grid-gap: 10px;
 }
 
-.profile_info {
-    margin-left: 20px
+.main_img {
+    width: 100%;
 }

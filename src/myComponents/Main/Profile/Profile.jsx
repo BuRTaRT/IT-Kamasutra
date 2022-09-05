@@ -1,18 +1,19 @@
-import React from 'react';
-import s from "./Profile.module.css";
+import React from "react";
+import s from './Profile.module.css'
+import Posts from "./Posts/Posts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-function Profile(){
-   return (
-        <div className={s.profile}>
-            <img src="https://i1.sndcdn.com/avatars-000407348541-ys6sng-t240x240.jpg" alt="profile-img"/>
-            <div className={s.profile_info}>
-                <h3>Artem B.</h3>
-                <div>Date of birth: 1 March</div>
-                <div>City: Kyiv</div>
-                <div>education: BSU</div>
-                <div>web site : www.</div>
-            </div>
-        </div>
+
+
+function Profile(props) {
+    return (
+        <main className={`${s.main} grid-elem`}>
+            <img className={s.main_img} src="https://aquadar.com/wp-content/uploads/2021/06/img_5148-3.jpg"
+                 alt="pff"/>
+            <ProfileInfo/>
+            <Posts postsTextArr={props.postsTextArr}/>
+        </main>
     )
 }
+
 export default Profile;
