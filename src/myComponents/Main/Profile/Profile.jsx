@@ -11,7 +11,7 @@ function Profile(props) {
             <img className={s.main_img} src="https://aquadar.com/wp-content/uploads/2021/06/img_5148-3.jpg"
                  alt="pff"/>
             <ProfileInfo/>
-            <Posts state={props.state}/>
+            <Posts state={props.state} addPost={props.addPost}/>
         </main>
     )
 }
