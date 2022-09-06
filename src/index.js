@@ -3,21 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import state from "./State/state"
 
-let userData = [
-    {name: 'misha', id: 1},
-    {name: 'pasha', id: 2},
-    {name: 'sasha', id: 3},
-    {name: 'igor', id: 4},
-    {name: 'stew', id: 5}
-];
-let messagesArr = ['Hello', 'Hello my friend', 'go play cs'];
-let postsTextArr = [`Why nobody loves me?`, `What is this place?`];
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App messagesArr={messagesArr} userData={userData} postsTextArr={postsTextArr} />
+    <App state={state} />
   </React.StrictMode>
 );
 

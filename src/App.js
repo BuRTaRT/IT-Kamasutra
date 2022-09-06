@@ -15,8 +15,8 @@ function App(props) {
                 <Header/>
                 <Nav/>
                 <div className='app-wrapper-main'>
-                    <Route path='/dialogs' render={()=><Dialogs userData={props.userData} messagesArr={props.messagesArr}/>}/>
-                    <Route path='/profile' render={()=><Profile postsTextArr={props.postsTextArr}/>}/>
+                    <Route path='/dialogs' render={()=><Dialogs state={props.state}/>}/>
+                    <Route path='/profile' render={()=><Profile state={props.state}/>}/>
                 </div>
                 <Footer/>
 
