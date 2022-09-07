@@ -1,7 +1,11 @@
 import {rerenderEntireTree} from "../render";
 
+
 let state = {
-    postsTextArr: [`Why nobody loves me?`, `What is this place?`],
+    profilePage: {
+        posts: [`Why nobody loves me?`, `What is this place?`],
+        newPostText: ''
+    },
     messagesArr: ['Hello', 'Hello my friend', 'go play cs'],
     userData: [
         {name: 'misha', id: 1},
@@ -9,13 +13,20 @@ let state = {
         {name: 'sasha', id: 3},
         {name: 'igor', id: 4},
         {name: 'stew', id: 5}
-    ],
-    addPost : (value) => {
-        state.postsTextArr.push(value);
-        rerenderEntireTree(state)
-    }
+    ]
+
 
 }
 
+
+export let addPost= function () {
+    state.profilePage.posts.push(state.profilePage.newPostText);
+    rerenderEntireTree(state);
+    state.profilePage.newPostText = '';
+}
+export let updatePostText= function (value) {
+    state.profilePage.newPostText = value;
+    rerenderEntireTree(state);
+}
 
 export default state;
