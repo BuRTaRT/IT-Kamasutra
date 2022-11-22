@@ -1,12 +1,13 @@
 import React from "react";
-import s from './Dialogs.module.css'
+import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
 
 function Dialogs(props) {
-    let dialogs = props.state.userData.map((item) => <DialogItem key={item.id} name={item.name} id={item.id}/>);
-    let messages = props.state.messagesArr.map((item, i) => <Message key={i} message={item}/>)
+    let dialogs = props.store.getState().userData.map((item) => <DialogItem key={item.id} name={item.name} id={item.id}/>);
+    console.log(dialogs)
+    let messages = props.store.getState().messagesArr.map((item, i) => <Message key={i} message={item}/>)
     return (
         <div className={s.dialogs}>
             <div>

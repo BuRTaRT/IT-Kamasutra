@@ -6,20 +6,20 @@ import Profile from "./myComponents/Main/Profile/Profile";
 import Footer from "./myComponents/Footer/Footer";
 import Dialogs from "./myComponents/Main/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {updatePostText} from "./State/state";
 
 
 function App(props) {
+
     return (
         <BrowserRouter>
             <div className="App-wrapper">
                 <Header/>
                 <Nav/>
                 <div className='app-wrapper-main'>
-                    <Route path='/dialogs' render={() => <Dialogs state={props.state}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs store={props.store}/>}/>
                     <Route path='/profile'
-                           render={() => <Profile profilePage={props.state.profilePage} updatePostText={updatePostText}
-                                                  addPost={props.addPost}/>}/>
+                           render={() => <Profile store={props.store} dispatch={props.dispatch}
+                           />}/>
                 </div>
                 <Footer/>
 
