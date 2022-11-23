@@ -1,22 +1,18 @@
 import React from "react";
 import s from "./Posts.module.css";
 import Post from "./Post/Post";
-
+import {addPostActionCreate,updatePostTextActionCreate} from "../../../../State/store";
 
 let newPostElement = React.createRef();
 
 
+
 function Posts(props) {
     let addPost = () => {
-        props.dispatch({
-            type: "ADD-POST"
-        })
+        props.dispatch(addPostActionCreate())
     }
     let updatePostText = () => {
-        props.dispatch({
-            type: "UPDATE-POST-TEXT",
-            newPostText: newPostElement.current.value
-        })
+        props.dispatch(updatePostTextActionCreate((newPostElement.current.value)))
     }
     let postsArr = props.store.getState().profilePage.posts.map((item, i) => <Post key={i} message={item}/>);
     return (

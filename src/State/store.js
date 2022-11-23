@@ -1,6 +1,8 @@
 let rerenderEntireTree = () => {
 
 }
+let ADD_POST = 'ADD-POST',
+    UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
 
 let store = {
     _state: {
@@ -19,40 +21,45 @@ let store = {
         ],
 
 
-
     },
-    getState(){
+    getState() {
         return this._state;
     },
-    addPost () {
-        this._state.profilePage.posts.push(this._state.profilePage.newPostText);
-        rerenderEntireTree(this._state);
-        this._state.profilePage.newPostText = '';
-    },
-    updatePostText(value) {
-        this._state.profilePage.newPostText = value;
-        rerenderEntireTree(this._state);
-    },
-    subscribe (observer)  { //pattern observer
+    // addPost() {
+    //     this._state.profilePage.posts.push(this._state.profilePage.newPostText);
+    //     rerenderEntireTree(this._state);
+    //     this._state.profilePage.newPostText = '';
+    // },
+    // updatePostText(value) {
+    //     this._state.profilePage.newPostText = value;
+    //     rerenderEntireTree(this._state);
+    // },
+    subscribe(observer) { //pattern observer
         rerenderEntireTree = observer;
     },
-    dispatch (action){
-        if (action.type === "ADD-POST"){
+    dispatch(action) {
+        if (action.type === ADD_POST) {
             this._state.profilePage.posts.push(this._state.profilePage.newPostText);
             rerenderEntireTree(this._state);
             this._state.profilePage.newPostText = '';
-        }
-        else if(action.type === "UPDATE-POST-TEXT"){
+        } else if (action.type === UPDATE_POST_TEXT) {
             this._state.profilePage.newPostText = action.newPostText;
             rerenderEntireTree(this._state);
         }
 
     }
 }
-
-
-
-
+export let addPostActionCreate = () => {
+    return {
+        type: ADD_POST
+    };
+}
+export let updatePostTextActionCreate = (text) => {
+    return {
+        type: UPDATE_POST_TEXT,
+        newPostText: text
+    }
+}
 
 
 export default store;
