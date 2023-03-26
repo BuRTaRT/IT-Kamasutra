@@ -18,11 +18,11 @@ let store = {
         messagesArr: ['Hello', 'Hello my friend', 'go play cs'],
         newMessageText:'',
         userData: [
-            {name: 'misha', id: 1, messagesArr: ['Hello', 'Hello my friend', 'go play cs']},
-            {name: 'pasha', id: 2, messagesArr: ['bye', 'bye my enemy', 'go play dota']},
-            {name: 'sasha', id: 3,messagesArr: ['pidor', 'bye my enemy', 'go play dota']},
-            {name: 'igor', id: 4,messagesArr: ['vafel', 'bye my enemy', 'go play dota']},
-            {name: 'stew', id: 5,messagesArr: ['tratata', 'bye my enemy', 'go play dota']}
+            {name: 'misha', id: 1, messages: ['Hello', 'Hello my friend', 'go play cs']},
+            {name: 'pasha', id: 2, messages: ['bye', 'bye my enemy', 'go play dota']},
+            {name: 'sasha', id: 3,messages: ['pidor', 'bye my enemy', 'go play dota']},
+            {name: 'igor', id: 4,messages: ['vafel', 'bye my enemy', 'go play dota']},
+            {name: 'stew', id: 5,messages: ['tratata', 'bye my enemy', 'go play dota']}
         ],
 
 
