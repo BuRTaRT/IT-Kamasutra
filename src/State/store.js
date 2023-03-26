@@ -1,13 +1,11 @@
-let rerenderEntireTree = () => {
+import profilePageReducer from "./ProfilePageReducer";
+import dialogsPageReducer from "./DialogsReducer";
 
-}
-let ADD_POST = 'ADD-POST',
-    UPDATE_POST_TEXT = 'UPDATE-POST-TEXT',
-    ADD_MESSAGE='ADD-MESSAGE',
-    UPDATE_MESSAGE_TEXT='UPDATE-MESSAGE-TEXT';
 
 
 let store = {
+    _callSubscriber: () => {
+    },
     _state: {
 
         profilePage: {
@@ -15,72 +13,34 @@ let store = {
             newPostText: ''
 
         },
-        messagesArr: ['Hello', 'Hello my friend', 'go play cs'],
-        newMessageText:'',
-        userData: [
-            {name: 'misha', id: 1, messages: ['Hello', 'Hello my friend', 'go play cs']},
-            {name: 'pasha', id: 2, messages: ['bye', 'bye my enemy', 'go play dota']},
-            {name: 'sasha', id: 3,messages: ['pidor', 'bye my enemy', 'go play dota']},
-            {name: 'igor', id: 4,messages: ['vafel', 'bye my enemy', 'go play dota']},
-            {name: 'stew', id: 5,messages: ['tratata', 'bye my enemy', 'go play dota']}
-        ],
+        dialogsPage: {
+            userData: [
+                {name: 'misha', id: 1, messages: ['Hello', 'Hello my friend', 'go play cs']},
+                {name: 'pasha', id: 2, messages: ['bye', 'bye my enemy', 'go play dota']},
+                {name: 'sasha', id: 3, messages: ['pidor', 'bye my enemy', 'go play dota']},
+                {name: 'igor', id: 4, messages: ['vafel', 'bye my enemy', 'go play dota']},
+                {name: 'stew', id: 5, messages: ['tratata', 'bye my enemy', 'go play dota']}
+            ],
+            newMessageText: '',
+            messagesArr: ['Hello', 'Hello my friend', 'go play cs']
+
+        },
 
 
     },
     getState() {
         return this._state;
     },
-    // addPost() {
-    //     this._state.profilePage.posts.push(this._state.profilePage.newPostText);
-    //     rerenderEntireTree(this._state);
-    //     this._state.profilePage.newPostText = '';
-    // },
-    // updatePostText(value) {
-    //     this._state.profilePage.newPostText = value;
-    //     rerenderEntireTree(this._state);
-    // },
-
-    // updateDialogMessageText(value) {
-    //         this._state.newMessageText = value;
-    //         rerenderEntireTree();
-    //     },
-    // addMessage() {
-    //     this._state.messagesArr.push(this._state.newMessageText);
-    //     rerenderEntireTree();
-    //     this._state.newMessageText = '';
-    // },
     subscribe(observer) { //pattern observer
-        rerenderEntireTree = observer;
+        this._callSubscriber = observer;
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            this._state.profilePage.posts.push(this._state.profilePage.newPostText);
-            rerenderEntireTree();
-            this._state.profilePage.newPostText = '';
-        } else if (action.type === UPDATE_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newPostText;
-            rerenderEntireTree();
-        } else if(action.type === ADD_MESSAGE){
-            this._state.messagesArr.push(this._state.newMessageText);
-            rerenderEntireTree();
-            this._state.newMessageText = '';
-        } else if(action.type === UPDATE_MESSAGE_TEXT){
-            this._state.newMessageText = action.newMessageText;
-            rerenderEntireTree();
-        }
+        profilePageReducer(this.getState().profilePage, action)
+        dialogsPageReducer(this.getState().dialogsPage, action)
+        this._callSubscriber()
+
 
     }
 }
-export let addMessageActionCreate=()=>({type:ADD_MESSAGE});
-export let updateMessageTextActionCreate=(text)=>({
-    type:UPDATE_MESSAGE_TEXT,
-    newMessageText: text})
-export let addPostActionCreate = () => ({type: ADD_POST});
-export let updatePostTextActionCreate = (text) => ({
-        type: UPDATE_POST_TEXT,
-        newPostText: text
-
-});
-
 
 export default store;

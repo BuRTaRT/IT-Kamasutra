@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Posts.module.css";
 import Post from "./Post/Post";
-import {addPostActionCreate, updatePostTextActionCreate} from "../../../../State/store";
+import {addPostActionCreate, updatePostTextActionCreate} from "../../../../State/ProfilePageReducer";
 
 let newPostElement = React.createRef();
 
