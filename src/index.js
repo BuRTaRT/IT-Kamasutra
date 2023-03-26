@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
             </React.StrictMode>
         );
     };
-    rerenderEntireTree(store.getState());
+    rerenderEntireTree();
     store.subscribe(rerenderEntireTree);
 
 
