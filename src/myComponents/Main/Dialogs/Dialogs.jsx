@@ -2,32 +2,21 @@ import React from "react";
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {updateMessageTextActionCreate, addMessageActionCreate} from "../../../State/DialogsReducer";
 import {Route} from "react-router-dom";
 
 
 function Dialogs(props) {
-    let users = props.dialogsPage.userData;
-    let dialogs = users.map((item) => <DialogItem key={item.id} name={item.name} id={item.id}/>);
-    let routes = users.map(user => {
-        return <Route key={user.id} path={`/dialogs/${user.id}`} render={() => makeMessagesElements(user.id)}/>
-    })
+    let users = props.users;
 
-    function updateDialogsMessage(e) {
-        let text = e.target.value;
-        let action = updateMessageTextActionCreate(text);
-        props.dispatch(action)
-    }
-
-    function addMessage() {
-        props.dispatch(addMessageActionCreate())
-    }
 
     function makeMessagesElements(id) {
         let user = users.filter(user => user.id === id)[0];//finding user in [users] by user.id
         return user.messages.map((item, i) => <Message key={i} message={item}/>)//returning [MessageElements]
     }
-
+    let dialogs = users.map((item) => <DialogItem key={item.id} name={item.name} id={item.id}/>);
+    let routes = users.map(user => {
+        return <Route key={user.id} path={`/dialogs/${user.id}`} render={() => makeMessagesElements(user.id)}/>
+    })
     return (
         <div className={s.dialogs}>
             <div>
@@ -40,11 +29,11 @@ function Dialogs(props) {
             </div>
             <div>
                 <textarea
-                    onChange={updateDialogsMessage}
-                    value={props.dialogsPage.newMessageText}>
+                    onChange={props.updateDialogsMessage}
+                    value={props.newMessageText}>
 
                 </textarea>
-                <button onClick={addMessage}>send</button>
+                <button onClick={props.addMessage}>send</button>
             </div>
 
 

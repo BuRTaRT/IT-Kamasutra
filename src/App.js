@@ -4,7 +4,7 @@ import Header from "./myComponents/Header/Header";
 import Nav from "./myComponents/Nav/Nav";
 import Profile from "./myComponents/Main/Profile/Profile";
 import Footer from "./myComponents/Footer/Footer";
-import Dialogs from "./myComponents/Main/Dialogs/Dialogs";
+import DialogsContainer from "./myComponents/Main/Dialogs/DialogsContainer";
 import {BrowserRouter, Route} from "react-router-dom";
 
 
@@ -15,7 +15,7 @@ function App(props) {
                 <Header/>
                 <Nav/>
                 <div className='app-wrapper-main'>
-                    <Route path='/dialogs' render={() => <Dialogs dispatch={props.dispatch} dialogsPage={props.store.getState().dialogsPage}/>}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer  store={props.store}/>}/>
                     <Route path='/profile'
                            render={() => <Profile store={props.store} dispatch={props.dispatch}
                            />}/>
