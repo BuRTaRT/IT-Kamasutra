@@ -3,20 +3,24 @@ import './index.css';
 import ReactDOM from 'react-dom/client';
 import App from "./App";
 import store from "./State/reduxStore";
+import {BrowserRouter} from "react-router-dom";
+import  {Provider} from "./StoreContext";
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-    let rerenderEntireTree=(store)=>{
-        root.render(
-            <React.StrictMode>
-                <App store={store} dispatch={store.dispatch.bind(store)} />
-            </React.StrictMode>
-        );
-    };
-    rerenderEntireTree(store);
-    store.subscribe(()=>{
-        rerenderEntireTree(store)
-    });
+let rerenderEntireTree = (store) => {
+    root.render(
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>);
+};
+rerenderEntireTree(store);
+store.subscribe(() => {
+    rerenderEntireTree(store)
+});
 
 
 
