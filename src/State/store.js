@@ -37,7 +37,7 @@ let store = {
     dispatch(action) {
         profilePageReducer(this.getState().profilePage, action)
         dialogsPageReducer(this.getState().dialogsPage, action)
-        this._callSubscriber()
+        this._callSubscriber(store)
 
 
     }

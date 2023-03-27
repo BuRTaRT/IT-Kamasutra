@@ -9,14 +9,13 @@ import {BrowserRouter, Route} from "react-router-dom";
 
 
 function App(props) {
-
     return (
         <BrowserRouter>
             <div className="App-wrapper">
                 <Header/>
                 <Nav/>
                 <div className='app-wrapper-main'>
-                    <Route path='/dialogs' render={() => <Dialogs store={props.store}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs dispatch={props.dispatch} dialogsPage={props.store.getState().dialogsPage}/>}/>
                     <Route path='/profile'
                            render={() => <Profile store={props.store} dispatch={props.dispatch}
                            />}/>

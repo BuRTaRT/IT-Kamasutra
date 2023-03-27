@@ -3,7 +3,13 @@ import React from "react";
 let ADD_POST = 'ADD-POST',
     UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
 
-function profilePageReducer(state, action) {
+let initialState={
+    posts: [`Why nobody loves me?`, `What is this place?`],
+    newPostText: ''
+
+}
+
+function profilePageReducer(state=initialState, action) {
     switch (action.type) {
         case ADD_POST:
             state.posts.push(state.newPostText);

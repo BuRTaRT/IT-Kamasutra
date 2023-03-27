@@ -7,7 +7,7 @@ import {Route} from "react-router-dom";
 
 
 function Dialogs(props) {
-    let users = props.store.getState().dialogsPage.userData;
+    let users = props.dialogsPage.userData;
     let dialogs = users.map((item) => <DialogItem key={item.id} name={item.name} id={item.id}/>);
     let routes = users.map(user => {
         return <Route key={user.id} path={`/dialogs/${user.id}`} render={() => makeMessagesElements(user.id)}/>
@@ -16,11 +16,11 @@ function Dialogs(props) {
     function updateDialogsMessage(e) {
         let text = e.target.value;
         let action = updateMessageTextActionCreate(text);
-        props.store.dispatch(action)
+        props.dispatch(action)
     }
 
     function addMessage() {
-        props.store.dispatch(addMessageActionCreate())
+        props.dispatch(addMessageActionCreate())
     }
 
     function makeMessagesElements(id) {
@@ -41,7 +41,7 @@ function Dialogs(props) {
             <div>
                 <textarea
                     onChange={updateDialogsMessage}
-                    value={props.store.getState().dialogsPage.newMessageText}>
+                    value={props.dialogsPage.newMessageText}>
 
                 </textarea>
                 <button onClick={addMessage}>send</button>
