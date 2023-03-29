@@ -1,6 +1,5 @@
-import React from "react";
-
-let ADD_MESSAGE = 'ADD-MESSAGE',
+import React from 'react';
+const ADD_MESSAGE = 'ADD-MESSAGE',
     UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT';
 
 let initialState = {
@@ -12,19 +11,29 @@ let initialState = {
         {name: 'stew', id: 5, messages: ['tratata', 'bye my enemy', 'go play dota']}
     ],
     newMessageText: '',
-    messagesArr: ['Hello', 'Hello my friend', 'go play cs']
+    messagesArr:['Hello', 'Hello my friend', 'go play cs']
 
 }
 
 function dialogsPageReducer(state = initialState, action) {
+
     switch (action.type) {
         case ADD_MESSAGE:
-            state.userData[0].messages.push(state.newMessageText);
-            state.newMessageText = '';
-            return state;
+            return {
+                ...state,
+                messagesArr: [...state.messagesArr,state.newMessageText],
+                newMessageText: ''
+            }
+            // state.messagesArr.push(state.newMessageText);
+            // state.newMessageText = '';
+            // return state;
         case UPDATE_MESSAGE_TEXT:
-            state.newMessageText = action.newMessageText;
-            return state;
+            return {
+                ...state,
+                newMessageText: action.newMessageText
+            }
+            // state.newMessageText = action.newMessageText;
+            // return state;
         default:
             return state;
     }

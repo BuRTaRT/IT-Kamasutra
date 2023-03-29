@@ -1,3 +1,4 @@
+import React from "react";
 import profilePageReducer from "./ProfilePageReducer";
 import dialogsPageReducer from "./DialogsReducer";
 
