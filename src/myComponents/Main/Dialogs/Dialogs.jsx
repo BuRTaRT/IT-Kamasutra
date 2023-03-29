@@ -8,8 +8,7 @@ import {Route} from "react-router-dom";
 function Dialogs(props) {
     let users = props.dialogsPage.userData;
 
-    let dialogs = users.map((item) => <DialogItem key={item.id} name={item.name} id={item.id}/>);
-
+    let dialogs = users.map((item) => <DialogItem render={props.render} key={item.id} name={item.name} id={item.id}/>);
     function makeMessagesElements(id) {
         let user = users.filter(user => user.id === id)[0];//finding user in [users] by user.id
         return user.messages.map((item, i) => <Message key={i} message={item}/>)//returning [MessageElements]
@@ -29,7 +28,7 @@ function Dialogs(props) {
             </div>
             <div className={s.messages}>
                 {routes}
-                {messages}
+                {/*{messages}*/}
             </div>
             <div>
                 <textarea
