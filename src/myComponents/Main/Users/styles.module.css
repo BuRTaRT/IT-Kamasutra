@@ -1,0 +1,11 @@
+.selectedPage{
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 4px;
+}
+.userPage{
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 4px;
+}

@@ -13,7 +13,6 @@ function Dialogs(props) {
         let user = users.filter(user => user.id === id)[0];//finding user in [users] by user.id
         return user.messages.map((item, i) => <Message key={i} message={item}/>)//returning [MessageElements]
     }
-    let messages = props.dialogsPage.messagesArr.map((message,i)=> <Message key={i} message={message} />)
     let routes = users.map(user => {
         return <Route key={user.id} path={`/dialogs/${user.id}`} render={() => makeMessagesElements(user.id)}/>
     })
@@ -28,7 +27,7 @@ function Dialogs(props) {
             </div>
             <div className={s.messages}>
                 {routes}
-                {/*{messages}*/}
+
             </div>
             <div>
                 <textarea

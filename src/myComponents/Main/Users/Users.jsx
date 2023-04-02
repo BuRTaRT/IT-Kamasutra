@@ -1,27 +1,28 @@
 import React from "react";
-
+import axios from "axios";
+import UsersPhoto from './images/bladerunner.jpg';
 
 function Users(props) {
-    let carry = () => {
-        return props.follow;
-    }
+    if(props.users.length<3)(
+    axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        .then(response=>{
+           props.updateUsers(response.data.items)
+        })
+    )
 
-    let users = props.users.map(u => {
+
+   return props.users.map(u => {
         return (
             <div>
-                <img style={{height: '100px', width: "110px", borderRadius: '100%'}} src={u.avatarSrc} alt="avatar"/>
-                <div>{u.fullName}</div>
-                <div>{`${u.location.country} ${u.location.city}`}</div>
+                <img style={{height: '100px', width: "110px", borderRadius: '100%'}} src={UsersPhoto} alt="avatar"/>
+                <div>{u.name}</div>
+                {/*<div>{`${u.location.country} ${u.location.city}`}</div>*/}
                 <div>{u.status}</div>
-                <button onClick={()=>props.follow(u.id)}>{u.followed ? 'unfollow' : 'follow'}</button>
+                <button onClick={() => props.follow(u.id)}>{u.followed ? 'unfollow' : 'follow'}</button>
             </div>
         )
     })
-    return (
-        <div>
-            {users}
-        </div>
-    )
+
 
 }
 
