@@ -1,24 +1,28 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {followAC, setCurrentPageAC, updateUsersAC} from "../../../State/UsersReducer";
+import {follow, setCurrentPage, toggleFetch, updateUsers} from "../../../State/UsersReducer";
 import axios from "axios";
 import Users from "./Users";
 
 class UsersApiComponent extends React.Component {
 
     componentDidMount() {
+        this.props.toggleFetch(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.updateUsers(response.data.items)
+                this.props.toggleFetch(false);
             })
 
     }
 
     onPageChanged = (pageNumber) => {
+        this.props.toggleFetch(true);
         this.props.setCurrentPage(pageNumber);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.updateUsers(response.data.items);
+                this.props.toggleFetch(false);
 
             })
 
@@ -31,6 +35,8 @@ class UsersApiComponent extends React.Component {
                       onPageChanged={this.onPageChanged}
                       users={this.props.users}
                       follow={this.props.follow}
+                      isFetching={this.props.isFetching}
+
         />
 
 
@@ -43,30 +49,19 @@ let mapStateToProps = (state) => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+         isFetching:state.usersPage.isFetching
 
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (id) => {
-            let action = followAC(id);
-            dispatch(action)
-        },
-        updateUsers: (users) => {
-            let action = updateUsersAC(users);
-            dispatch(action)
-        },
-        setCurrentPage: (page) => {
-            let action = setCurrentPageAC(page);
-            dispatch(action)
-        }
 
-
-    }
+let actionCreators={
+    follow,
+    updateUsers,
+    setCurrentPage,
+    toggleFetch
 }
-
-let UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiComponent);
+let UsersContainer = connect(mapStateToProps, actionCreators)(UsersApiComponent);
 
 export default UsersContainer;

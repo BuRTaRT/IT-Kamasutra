@@ -11,6 +11,7 @@ function Users(props) {
     }
 return (
     <div>
+        {props.isFetching ? <img style={{width:'100px',height:'100px'}} src="https://v.fastcdn.co/u/430e104e/57579327-0-Loaders-3.svg" alt=""/> : null}
         <div>
             {pages.map((pageNumber) => {
                 return <span   onClick={() => props.onPageChanged(pageNumber) }
