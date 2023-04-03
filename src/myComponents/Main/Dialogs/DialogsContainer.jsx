@@ -1,5 +1,10 @@
 import React from 'react'
-import {updateMessageTextActionCreate, addMessageActionCreate, rerenderAC} from "../../../State/DialogsReducer";
+import {
+    updateMessageTextActionCreate,
+    addMessageActionCreate,
+    changeDialogAC,
+    getMessagesAC,
+} from "../../../State/DialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 
@@ -18,9 +23,10 @@ let mapDispatchToProps = (dispatch) => {
         addMessage: () => {
             dispatch(addMessageActionCreate())
         },
-        render:()=>{
-            dispatch(rerenderAC())
+        changeDialog:(currentDialog)=>{
+            dispatch(changeDialogAC(currentDialog))
         }
+
     }
 }
 

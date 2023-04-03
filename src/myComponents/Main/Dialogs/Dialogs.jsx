@@ -6,20 +6,21 @@ import {Route} from "react-router-dom";
 
 
 function Dialogs(props) {
-    let users = props.dialogsPage.userData;
+    let dialogs = props.dialogsPage.userData.map((item) => <DialogItem
+        changeDialog={props.changeDialog}
+        key={item.id}
+        name={item.name}
+        getMessages={props.getMessages}
+        id={item.id}/>)
 
-    let dialogs = users.map((item) => <DialogItem render={props.render} key={item.id} name={item.name} id={item.id}/>);
-    function makeMessagesElements(id) {
-        let user = users.filter(user => user.id === id)[0];//finding user in [users] by user.id
-        return user.messages.map((item, i) => <Message key={i} message={item}/>)//returning [MessageElements]
-    }
-    let routes = users.map(user => {
-        return <Route key={user.id} path={`/dialogs/${user.id}`} render={() => makeMessagesElements(user.id)}/>
-    })
-    let updateMessage=(e)=>{
-        let value=e.target.value;
+    let updateMessage = (e) => {
+        let value = e.target.value;
         props.updateDialogsMessage(value)
     }
+    let messages = props.dialogsPage.currentUser.messages.map((message,i) => <Message key={i} message={message}/>)
+    let routes = props.dialogsPage.userData.map((u) => (
+        <Route key={u.id} path={`/dialogs/${u.id}`} render={() => messages}/>
+    ))
     return (
         <div className={s.dialogs}>
             <div>
@@ -27,6 +28,11 @@ function Dialogs(props) {
             </div>
             <div className={s.messages}>
                 {routes}
+                {/*<Route path={'/dialogs/1'} render={() => messages}/>*/}
+                {/*<Route path={'/dialogs/2'} render={() => messages}/>*/}
+                {/*<Route path={'/dialogs/3'} render={() => messages}/>*/}
+                {/*<Route path={'/dialogs/4'} render={() => messages}/>*/}
+                {/*<Route path={'/dialogs/5'} render={() => messages}/>*/}
 
             </div>
             <div>

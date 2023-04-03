@@ -1,13 +1,16 @@
 import React from 'react';
 
 let ADD_POST = 'ADD-POST',
-    UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
+    UPDATE_POST_TEXT = 'UPDATE-POST-TEXT',
+    SET_USER_PROFILE = "SET_USER_PROFILE"
 
 let initialState = {
     posts: [`Why nobody loves me?`, `What is this place?`],
-    newPostText: ''
+    newPostText: '',
+    userProfile: null
 
 }
+
 
 function profilePageReducer(state = initialState, action) {
     switch (action.type) {
@@ -17,21 +20,25 @@ function profilePageReducer(state = initialState, action) {
                 posts: [...state.posts, state.newPostText],
                 newPostText: ''
             }
-        // state.posts.push(state.newPostText);
-        // state.newPostText = '';
-        // return state;
         case UPDATE_POST_TEXT:
             return {
                 ...state,
                 newPostText: action.newPostText
             }
-        // state.newPostText = action.newPostText;
-        // return state;
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                userProfile: action.userProfile
+            }
         default:
             return state;
     }
 }
 
+export let setUserProfileAC = (userProfile) => ({
+    type: SET_USER_PROFILE,
+    userProfile: userProfile
+});
 export let addPostActionCreate = () => ({type: ADD_POST});
 export let updatePostTextActionCreate = (text) => ({
     type: UPDATE_POST_TEXT,

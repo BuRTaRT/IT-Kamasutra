@@ -7,6 +7,7 @@ import Footer from "./myComponents/Footer/Footer";
 import DialogsContainer from "./myComponents/Main/Dialogs/DialogsContainer";
 import {Route} from "react-router-dom";
 import UsersContainer from "./myComponents/Main/Users/UsersContainer";
+import ProfileContainer from "./myComponents/Main/Profile/ProfileContainer";
 
 
 function App(props) {
@@ -18,7 +19,7 @@ function App(props) {
             <Nav/>
             <div className='app-wrapper-main'>
                 <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                <Route path='/profile' render={() => <Profile/>}/>
+                <Route path='/profile' render={() => <ProfileContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
             </div>
             <Footer/>
