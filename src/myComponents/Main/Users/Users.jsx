@@ -6,6 +6,7 @@ import Preloader from "../../common/Preloader";
 
 
 function Users(props) {
+    console.log(props)
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -22,9 +23,10 @@ function Users(props) {
                 {props.users.map(u => {
                     return (
                         <div>
-                            <NavLink to={'/profile/2'}><img style={{height: '100px', width: "110px", borderRadius: '100%'}}
-                                          src={u.photos.small ? u.photos.small : UsersPhoto}
-                                          alt="avatar"/>
+                            <NavLink to={`/profile/${u.id}`}><img
+                                style={{height: '100px', width: "110px", borderRadius: '100%'}}
+                                src={u.photos.small ? u.photos.small : UsersPhoto}
+                                alt="avatar"/>
                             </NavLink>
                             <div>{u.name}</div>
                             {/*<div>{`${u.location.country} ${u.location.city}`}</div>*/}

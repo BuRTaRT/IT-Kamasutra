@@ -19,7 +19,7 @@ function App(props) {
             <Nav/>
             <div className='app-wrapper-main'>
                 <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                <Route path='/profile' render={() => <ProfileContainer/>}/>
+                <Route path='/profile/:userid?' render={() => <ProfileContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
             </div>
             <Footer/>
