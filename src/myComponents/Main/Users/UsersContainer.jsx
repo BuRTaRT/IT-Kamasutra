@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {follow, setCurrentPage, toggleFetch, updateUsers} from "../../../State/UsersReducer";
-import axios from "axios";
+import {follow, setCurrentPage, toggleFetch, unfollow, updateUsers} from "../../../State/UsersReducer";
 import Users from "./Users";
+import {usersApi} from "../../Api/Api";
 
 class UsersApiComponent extends React.Component {
 
     componentDidMount() {
         this.props.toggleFetch(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.updateUsers(response.data.items)
+        usersApi.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                this.props.updateUsers(data)
                 this.props.toggleFetch(false);
             })
 
@@ -19,11 +19,10 @@ class UsersApiComponent extends React.Component {
     onPageChanged = (pageNumber) => {
         this.props.toggleFetch(true);
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.updateUsers(response.data.items);
+        usersApi.onPageChangeAxios(pageNumber, this.props.pageSize)
+            .then(data => {
+                this.props.updateUsers(data);
                 this.props.toggleFetch(false);
-
             })
 
     }
@@ -36,6 +35,7 @@ class UsersApiComponent extends React.Component {
                       users={this.props.users}
                       follow={this.props.follow}
                       isFetching={this.props.isFetching}
+                      unfollow={this.props.unfollow}
 
         />
 
@@ -50,14 +50,15 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-         isFetching:state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching
 
     }
 }
 
 
-let actionCreators={
+let actionCreators = {
     follow,
+    unfollow,
     updateUsers,
     setCurrentPage,
     toggleFetch

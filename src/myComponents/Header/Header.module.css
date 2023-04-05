@@ -1,9 +1,26 @@
 .header {
     grid-area: header;
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
+
 .header img {
-    position: absolute;
-    height: 100%;
     left: 0;
 }
+
+.login {
+    margin-right: 20px;
+    font-size: 20px;
+
+}
+.login a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+.login a:hover{
+    color: white;
+}
+

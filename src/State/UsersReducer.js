@@ -21,13 +21,25 @@ function usersReducer(state = initialState, action) {
                 ...state,
                 users: state.users.map((u) => {
                     if (u.id === action.id) {
-                        return {...u, followed: !u.followed}
+                        return {...u, followed:true}
                     }
                     return u;
 
                 })
 
             }
+        case UNFOLLOW:
+            return {
+            ...state,
+            users: state.users.map((u) => {
+                if (u.id === action.id) {
+                    return {...u, followed:false}
+                }
+                return u;
+
+            })
+
+        }
         case UPDATE_USERS:
             return {
                 ...state,
@@ -51,7 +63,8 @@ function usersReducer(state = initialState, action) {
 }
 
 export let follow = (id) => ({type: FOLLOW, id: id});
-// export let unFollowAC = (id) => ({type: UNFOLLOW,id:id});
+export let unfollow = (id) => ({type: UNFOLLOW, id: id});
+
 export let updateUsers = (users) => ({
     type: UPDATE_USERS,
     users: users
