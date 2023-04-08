@@ -1,30 +1,25 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {follow, setCurrentPage, toggleFetch, unfollow, updateUsers} from "../../../State/UsersReducer";
-import Users from "./Users";
-import {usersApi} from "../../Api/Api";
+import {
+    getUsers,
+    toggleFollowingProgress,
+    unfollowThunk,
+    followThunk
 
-class UsersApiComponent extends React.Component {
+} from "../../../State/UsersReducer";
+import Users from "./Users";
+import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {compose} from "redux";
+
+
+class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.toggleFetch(true);
-        usersApi.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.updateUsers(data)
-                this.props.toggleFetch(false);
-            })
-
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.toggleFetch(true);
-        this.props.setCurrentPage(pageNumber);
-        usersApi.onPageChangeAxios(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.updateUsers(data);
-                this.props.toggleFetch(false);
-            })
-
+        this.props.getUsers(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -33,9 +28,10 @@ class UsersApiComponent extends React.Component {
                       currentPage={this.props.currentPage}
                       onPageChanged={this.onPageChanged}
                       users={this.props.users}
-                      follow={this.props.follow}
                       isFetching={this.props.isFetching}
-                      unfollow={this.props.unfollow}
+                      followingInProgress={this.props.followingInProgress}
+                      unfollowThunk={this.props.unfollowThunk}
+                      followThunk={this.props.followThunk}
 
         />
 
@@ -50,19 +46,22 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
 
     }
 }
 
 
 let actionCreators = {
-    follow,
-    unfollow,
-    updateUsers,
-    setCurrentPage,
-    toggleFetch
+    toggleFollowingProgress,
+    getUsers,
+    unfollowThunk,
+    followThunk
 }
-let UsersContainer = connect(mapStateToProps, actionCreators)(UsersApiComponent);
+export default compose(
+    connect(mapStateToProps, actionCreators),
+    withAuthRedirect
+)(UsersContainer)
 
-export default UsersContainer;
+

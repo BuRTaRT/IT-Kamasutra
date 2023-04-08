@@ -3,10 +3,13 @@ import {
     updateMessageTextActionCreate,
     addMessageActionCreate,
     changeDialogAC,
-    getMessagesAC,
+
 } from "../../../State/DialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+
+import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
 
 let mapStateToProps = (state) => {
@@ -23,13 +26,14 @@ let mapDispatchToProps = (dispatch) => {
         addMessage: () => {
             dispatch(addMessageActionCreate())
         },
-        changeDialog:(currentDialog)=>{
+        changeDialog: (currentDialog) => {
             dispatch(changeDialogAC(currentDialog))
         }
 
     }
 }
 
-let DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-
-export default DialogsContainer;
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)

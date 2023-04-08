@@ -8,22 +8,27 @@ const instance = axios.create({
 
 
 export let usersApi = {
-    getUsers:function (currentPage = 1, pageSize = 5) {
+    getUsers: function (currentPage = 1, pageSize = 5) {
         return instance.get('users?page=' + currentPage + '&count=' + pageSize)
             .then(response => response.data.items)
 
     },
-    onPageChangeAxios: function (pageNumber, pageSize) {
-        return instance.get(`users?page=${pageNumber}&count=${pageSize}`)
-            .then(response => response.data.items)
+    unfollow: function (id) {
+        return instance.delete(`follow/${id}`)
+    },
+    follow: function (id) {
+        return instance.post(`follow/${id}`, {})
     }
 }
-// export function getUsers(currentPage=1,pageSize=5) {
-// //     return instance.get('users?page='+currentPage+'&count='+pageSize)
-// //         .then(response=>response.data.items)
-// // }
-// //
-// // export function onPageChangeAxios(pageNumber,pageSize){
-// //    return instance.get(`users?page=${pageNumber}&count=${pageSize}`)
-// //         .then(response => response.data.items)
-// // }
+export let profileApi = {
+    setProfile: function (id) {
+        return instance.get(`profile/${id}`)
+    }
+}
+export let authApi = {
+    auth: function () {
+        return instance.get(`auth/me`)
+    }
+}
+
+
