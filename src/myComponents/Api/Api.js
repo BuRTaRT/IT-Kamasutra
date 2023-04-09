@@ -23,6 +23,12 @@ export let usersApi = {
 export let profileApi = {
     setProfile: function (id) {
         return instance.get(`profile/${id}`)
+    },
+    getStatus: function (id) {
+        return instance.get(`status/${id}`)
+    },
+    putStatus: function () {
+        return instance.put(`status`)
     }
 }
 export let authApi = {
