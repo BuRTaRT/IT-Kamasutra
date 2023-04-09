@@ -25,10 +25,10 @@ export let profileApi = {
         return instance.get(`profile/${id}`)
     },
     getStatus: function (id) {
-        return instance.get(`status/${id}`)
+        return instance.get(`profile/status/${id}`)
     },
-    putStatus: function () {
-        return instance.put(`status`)
+    putStatus: function (status) {
+        return instance.put(`profile/status`,{status:status})
     }
 }
 export let authApi = {

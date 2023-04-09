@@ -1,9 +1,13 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfileThunk} from "../../../State/ProfilePageReducer";
+import {
+    getProfileStatus,
+    putProfileStatus,
+    setUserProfileThunk,
+    updateProfileStatus
+} from "../../../State/ProfilePageReducer";
 import withRouter from "react-router-dom/withRouter";
-import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 import {compose} from "redux";
 
 
@@ -12,10 +16,10 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userid = this.props.match.params.userid;
         if (!userid) {
-            userid = "2"
+            userid = "28648"
         }
         this.props.setUserProfileThunk(userid)
-
+        this.props.getProfileStatus(userid)
     }
 
     render() {
@@ -30,12 +34,13 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        userProfile: state.profilePage.userProfile
+        userProfile: state.profilePage.userProfile,
+        status: state.profilePage.status
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {setUserProfileThunk}),
+    connect(mapStateToProps, {setUserProfileThunk, getProfileStatus,putProfileStatus}),
     withRouter
 )(ProfileContainer)
 

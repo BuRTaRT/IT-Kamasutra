@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./ProfileInfo.module.css";
 import Preloader from "../../../common/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import {putProfileStatus} from "../../../../State/ProfilePageReducer";
 
 function ProfileInfo(props){
 if(!props.profile){
@@ -19,7 +20,7 @@ if(!props.profile){
                 <div>education: BSU</div>
                 <div>web site : www.</div>
             </div>
-            <ProfileStatus status={'hello guys'}/>
+            <ProfileStatus putProfileStatus={props.putProfileStatus}  status={props.status}/>
         </div>
     )
 }
