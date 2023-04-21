@@ -2,52 +2,46 @@ import React from "react";
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {Route} from "react-router-dom";
+import {Field, reduxForm} from "redux-form";
+import {FormControls} from "../../common/formControls/formControls";
+import {maxLengthC, minLengthC, required} from "../../../utils/validators";
 
+let minLength=minLengthC(2);
+let maxLength =maxLengthC(6)
+
+let Form = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field name={'message'} typefield={'textarea'} validate={[required,maxLength,minLength]} component={FormControls}></Field>
+            <button>send</button>
+        </form>
+    )
+}
 
 function Dialogs(props) {
     let dialogs = props.dialogsPage.userData.map((item) => <DialogItem
-        changeDialog={props.changeDialog}
         key={item.id}
         name={item.name}
-        getMessages={props.getMessages}
         id={item.id}/>)
+    let messages = props.dialogsPage.userData[0].messages.map((message, i) => <Message key={i} message={message}/>)
+    let onSubmit = (formData) => {
+        props.addMessage(formData.message);
 
-    let updateMessage = (e) => {
-        let value = e.target.value;
-        props.updateDialogsMessage(value)
     }
-    let messages = props.dialogsPage.currentUser.messages.map((message,i) => <Message key={i} message={message}/>)
-    let routes = props.dialogsPage.userData.map((u) => (
-        <Route key={u.id} path={`/dialogs/${u.id}`} render={() => messages}/>
-    ))
     return (
         <div className={s.dialogs}>
             <div>
                 {dialogs}
             </div>
             <div className={s.messages}>
-                {routes}
-                {/*<Route path={'/dialogs/1'} render={() => messages}/>*/}
-                {/*<Route path={'/dialogs/2'} render={() => messages}/>*/}
-                {/*<Route path={'/dialogs/3'} render={() => messages}/>*/}
-                {/*<Route path={'/dialogs/4'} render={() => messages}/>*/}
-                {/*<Route path={'/dialogs/5'} render={() => messages}/>*/}
-
+                {messages}
             </div>
-            <div>
-                <textarea
-                    onChange={updateMessage}
-                    value={props.dialogsPage.newMessageText}>
-
-                </textarea>
-                <button onClick={props.addMessage}>send</button>
-            </div>
-
-
+            <DialogsForm onSubmit={onSubmit}/>
         </div>
 
     )
 }
+
+let DialogsForm = reduxForm({form: 'dialogs'})(Form);
 
 export default Dialogs;

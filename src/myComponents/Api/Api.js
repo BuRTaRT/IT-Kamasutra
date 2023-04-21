@@ -28,12 +28,22 @@ export let profileApi = {
         return instance.get(`profile/status/${id}`)
     },
     putStatus: function (status) {
-        return instance.put(`profile/status`,{status:status})
+        return instance.put(`profile/status`, {status: status})
     }
 }
 export let authApi = {
     auth: function () {
         return instance.get(`auth/me`)
+    },
+    login: function (email, password,rememberMe=false) {
+        return instance.post(`auth/login`, {
+            email: email,
+            password: password,
+            rememberMe:rememberMe
+        })
+    },
+    logOut:function () {
+        return instance.delete(`auth/login`)
     }
 }
 
